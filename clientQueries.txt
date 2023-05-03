@@ -23,8 +23,8 @@ query getAllQuotes{
 
 --------------------------
 
-query getUserById{
-  user(id:"01GYZ8GB56S6ER5QDE6SD784MA"){
+query getUserById($userId: ID!){
+  user(id:$userId){
     first_name
     last_name
     email
@@ -33,11 +33,10 @@ query getUserById{
     }
   }
 }
-
 --------------------------
 
-query getQuoteById{
-  iquote(by:"01GYZ8GB56S6ER5QDE6SD784MA"){
+query getQuoteById($quoteId: ID!){
+  iquote(by:$quoteId){
     name
     by
   }
