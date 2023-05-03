@@ -12,14 +12,11 @@ const resolvers = {
     quotes: (ur) => quotes.filter((quote) => quote.by === ur.id),
   },
   Mutation: {
-    signupUserDummy: (_, { first_name, last_name, email, password }) => {
+    signupUserDummy: (_, { userNew }) => {
       const id = randomBytes(5).toString("hex");
       const payload = {
         id,
-        first_name,
-        last_name,
-        email,
-        password,
+        ...userNew,
       };
       users.push(payload);
       return users.find((user) => user.id === id);
