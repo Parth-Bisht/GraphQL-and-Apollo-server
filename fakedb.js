@@ -41,78 +41,15 @@ export const users = [
     email: "kfisby5@alexa.com",
     password: "BSSY2bV7A",
   },
-  {
-    id: "01GYZ8GB5A4AZ8X7P7TDHTGZT1",
-    first_name: "Chandler",
-    last_name: "Norker",
-    email: "cnorker6@thetimes.co.uk",
-    password: "lDlfrzHPQF2S",
-  },
-  {
-    id: "01GYZ8GB5BH14KVGCVGNWERTHR",
-    first_name: "Ulrika",
-    last_name: "Riehm",
-    email: "uriehm7@soundcloud.com",
-    password: "7nQw6Z1nt4no",
-  },
-  {
-    id: "01GYZ8GB5CMFQBKCHJXQ5X2214",
-    first_name: "Eleanor",
-    last_name: "Cottam",
-    email: "ecottam8@xing.com",
-    password: "1LVATax9zbYA",
-  },
-  {
-    id: "01GYZ8GB5CVQK8VW91Y15MZH1M",
-    first_name: "Graig",
-    last_name: "Ridwood",
-    email: "gridwood9@nydailynews.com",
-    password: "SDnKuPU",
-  },
-  {
-    id: "01GYZ8GB5DVV2NFHD22KKJSJP5",
-    first_name: "Lacee",
-    last_name: "Hessay",
-    email: "lhessaya@yellowbook.com",
-    password: "4zBBvLTlQJrI",
-  },
-  {
-    id: "01GYZ8GB5DGQB71FSH664VGHJ3",
-    first_name: "Conan",
-    last_name: "Gwyneth",
-    email: "cgwynethb@slate.com",
-    password: "PuRxY88AlQ0",
-  },
-  {
-    id: "01GYZ8GB5E2YQQMRPBHZBRYAXF",
-    first_name: "Saunders",
-    last_name: "Buckwell",
-    email: "sbuckwellc@imdb.com",
-    password: "ZPpLKJpI",
-  },
-  {
-    id: "01GYZ8GB5E5JBTQVD6DPBJEQX7",
-    first_name: "Shayna",
-    last_name: "Tohill",
-    email: "stohilld@toplist.cz",
-    password: "rJO55WwTG8m",
-  },
-  {
-    id: "01GYZ8GB5F8MFK5JEVH0V4BMJN",
-    first_name: "Pris",
-    last_name: "Ciobotaru",
-    email: "pciobotarue@alexa.com",
-    password: "eDIYoZVi8",
-  },
 ];
 
 export const quotes = [
   {
     name: "Hello world",
-    id: "01GYZ8GB56S6ER5QDE6SD784MA",
+    by: "01GYZ8GB56S6ER5QDE6SD784MA",
   },
   {
     name: "Wise for wisedom",
-    id: "01GYZ8GB575VTT5JMQ2WBN19DA",
+    by: "01GYZ8GB575VTT5JMQ2WBN19DA",
   },
 ];

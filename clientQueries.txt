@@ -1,0 +1,44 @@
+----------------------------
+query getAllUsers{
+  users{
+    id
+    first_name
+    last_name
+    email
+    quotes{
+      name
+      by
+    }
+  }
+}
+
+----------------------------
+
+query getAllQuotes{
+  quotes{
+    name
+    by
+  }
+}
+
+--------------------------
+
+query getUserById{
+  user(id:"01GYZ8GB56S6ER5QDE6SD784MA"){
+    first_name
+    last_name
+    email
+    quotes{
+      name
+    }
+  }
+}
+
+--------------------------
+
+query getQuoteById{
+  iquote(by:"01GYZ8GB56S6ER5QDE6SD784MA"){
+    name
+    by
+  }
+}
