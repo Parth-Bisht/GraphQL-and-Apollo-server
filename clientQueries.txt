@@ -1,7 +1,7 @@
 ----------------------------
 query getAllUsers{
   users{
-    id
+    _id
     first_name
     last_name
     email
@@ -53,9 +53,25 @@ mutation createUser($userNew: UserInput!){
   }
 }
 
+{
+  "userNew": {
+    "first_name": "parth",
+    "last_name": "bisht",
+    "email": "parth@gmail.com",
+    "password": "12345"
+  }
+}
+
 ---------------------------
 mutation SigninUser($userSignin: UserSigninInput!){
   user:signinUser(userSignin:$userSignin){
     token
+  }
+}
+
+{
+  "userSignin": {
+    "email": "parth@gmail.com",
+    "password": "12345"
   }
 }

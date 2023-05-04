@@ -5,15 +5,16 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "./config.js";
 
 const User = mongoose.model("User");
+const Quote = mongoose.model("Quote");
 const resolvers = {
   Query: {
-    users: () => users,
-    user: (_, args) => users.find((user) => user._id === args._id),
-    quotes: () => quotes,
-    iquote: (_, args) => quotes.filter((q) => q.by === args.by),
+    users: async () => await User.find(),
+    user: async (_, { _id }) => await User.findOne({ _id }), // users.find((user) => user._id === args._id),
+    quotes: async () => await Quote.find().populate("by", "_id first_name"),
+    iquote: async (_, { by }) => await Quote.find({ by }), //quotes.filter((q) => q.by === args.by),
   },
   User: {
-    quotes: (ur) => quotes.filter((quote) => quote.by === ur._id),
+    quotes: async (ur) => await Quote.find({ by: ur._id }), // quotes.filter((quote) => quote.by === ur._id),
   },
   Mutation: {
     signupUser: async (_, { userNew }) => {
@@ -46,6 +47,15 @@ const resolvers = {
       }
       const token = jwt.sign({ userId: user._id }, JWT_SECRET);
       return { token };
+    },
+    createQuote: async (_, { name }, { userId }) => {
+      if (!userId) throw new Error("Please login first!");
+      const newQuote = new Quote({
+        name,
+        by: userId,
+      });
+      await newQuote.save();
+      return "Quote saved successfully";
     },
   },
 };
