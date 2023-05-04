@@ -75,3 +75,27 @@ mutation SigninUser($userSignin: UserSigninInput!){
     "password": "12345"
   }
 }
+
+--------------------------
+
+mutation updateQuery($quoteUpdate: QuoteUpdateInput!){
+  updateQuote(quoteUpdate: $quoteUpdate){
+    _id
+    name
+  }
+}
+
+{
+  "authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDUzNTNhOTMwMWQxMDA1ZGIzMDVhN2IiLCJpYXQiOjE2ODMxOTQ2MzV9.Q4o4Z_i9nuDuslLNDHD6XEYCe8jOakX1X9EiMRKDfbk"
+}
+
+{
+  "quoteUpdate": {
+    "quoteId": "6453835802bac4f8364926de",
+    "name": "This is not so nice quote"
+  }
+}
+
+
+--------------------------
+

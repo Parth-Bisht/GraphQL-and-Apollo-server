@@ -18,13 +18,6 @@ const resolvers = {
   },
   Mutation: {
     signupUser: async (_, { userNew }) => {
-      // const _id = randomBytes(5).toString("hex");
-      // const payload = {
-      //   _id,
-      //   ...userNew,
-      // };
-      // users.push(payload);
-      // return users.find((user) => user._id === _id);
       const user = await User.findOne({ email: userNew.email });
       if (user) {
         throw new Error("User already exists with that email");
@@ -56,6 +49,22 @@ const resolvers = {
       });
       await newQuote.save();
       return "Quote saved successfully";
+    },
+    updateQuote: async (_, { quoteUpdate }, { userId }) => {
+      if (!userId) throw new Error("Please login first!");
+      const quote = await Quote.findOne({ _id: quoteUpdate.quoteId });
+      if (!quote) throw new Error("No quote found");
+      const updatedQuote = await Quote.updateOne(quote, {
+        name: quoteUpdate.name,
+      });
+      return await Quote.findOne({ _id: quoteUpdate.quoteId });
+    },
+    deleteQuote: async (_, { quoteId }, { userId }) => {
+      if (!userId) throw new Error("Please login first!");
+      const quote = await Quote.findOne({ _id: quoteId });
+      if (!quote) throw new Error("No quote found");
+      await Quote.deleteOne(quote);
+      return "Quote deleted successfully!";
     },
   },
 };
