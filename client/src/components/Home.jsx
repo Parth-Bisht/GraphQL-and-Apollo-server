@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { GET_ALL_QUOTES } from "../gqloperations/queries";
 
 const Home = () => {
-  const {loading,error,data} = useQuery(GET_ALL_QUOTES);
+  const { loading, error, data } = useQuery(GET_ALL_QUOTES);
   // useEffect(() => {
   //   fetch("http://localhost:4000", {
   //     method: "post",
@@ -27,16 +27,20 @@ const Home = () => {
   //     .then((res) => res.json())
   //     .then((data) => console.log(data));
   // }, []);
+  if (loading) return <h1>Loading</h1>;
+  if (error) {
+    console.log(error.message);
+  }
   return (
     <div className="container">
-      <blockquote>
-        <h6>if it works don't touch it</h6>
-        <p className="right-align">~ram</p>
-      </blockquote>
-      <blockquote>
-        <h6>if it works don't touch it</h6>
-        <p className="right-align">~ram</p>
-      </blockquote>
+      {data.quotes.map((quote, ind) => {
+        return (
+          <blockquote key={ind}>
+            <h6>{quote.name}</h6>
+            <p className="right-align">~{quote.by.first_name}</p>
+          </blockquote>
+        );
+      })}
     </div>
   );
 };
