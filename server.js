@@ -1,11 +1,25 @@
-import { ApolloServer } from "apollo-server";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { ApolloServer } from "apollo-server-express";
+import {
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginDrainHttpServer,
+  ApolloServerPluginLandingPageDisabled,
+} from "apollo-server-core";
 import typeDefs from "./schemaGql.js";
 import mongoose from "mongoose";
-import { JWT_SECRET, MONGO_URL } from "./config.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import express from "express";
+import http from "http";
 
-mongoose.connect(MONGO_URL, {
+const port = process.env.PORT || 4000;
+const app = express();
+const httpServer = http.createServer(app);
+
+if (process.env.NODE_ENV != "production") {
+  dotenv.config();
+}
+
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -29,13 +43,27 @@ const server = new ApolloServer({
   context: ({ req }) => {
     const { authorization } = req.headers;
     if (authorization) {
-      const { userId } = jwt.verify(authorization, JWT_SECRET);
+      const { userId } = jwt.verify(authorization, process.env.JWT_SECRET);
       return { userId };
     }
   },
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    process.env.NODE_ENV != "production"
+      ? ApolloServerPluginLandingPageGraphQLPlayground()
+      : ApolloServerPluginLandingPageDisabled(),
+  ],
 });
 
-server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url}`);
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
+await server.start();
+server.applyMiddleware({
+  app,
+  path: "/graphql",
+});
+httpServer.listen({ port }, () => {
+  console.log(`Server ready at ${server.graphqlPath}`);
 });
