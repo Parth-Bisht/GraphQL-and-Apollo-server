@@ -31,6 +31,7 @@ const Home = () => {
   if (error) {
     console.log(error.message);
   }
+  if(data.quotes.length===0) return <h2>No Quotes Available</h2>
   return (
     <div className="container">
       {data.quotes.map((quote, ind) => {

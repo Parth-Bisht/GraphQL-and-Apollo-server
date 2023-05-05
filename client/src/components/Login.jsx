@@ -1,9 +1,22 @@
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LOGIN_USER } from "../gqloperations/mutations";
 
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({});
+  const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER, {
+    onCompleted(data) {
+      localStorage.setItem("token", JSON.stringify(data.user.token));
+      navigate("/");
+    },
+  });
+  if (loading) return <h1>Loading</h1>;
+  // if (data) {
+  //   localStorage.setItem("token", JSON.stringify(data.user.token));
+  //   navigate("/");
+  // }
   const handleChange = (e) => {
     const input = e.target.name;
     setForm({
@@ -13,11 +26,15 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-    navigate("/");
+    loginUser({
+      variables: {
+        userSignin: form,
+      },
+    });
   };
   return (
     <div className="container my-container">
+      {error && <div className="red card-panel">{error.message}</div>}
       <h5>Login!!</h5>
       <form onSubmit={handleSubmit}>
         <input
