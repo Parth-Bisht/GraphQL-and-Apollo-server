@@ -23,3 +23,17 @@ export const GET_MY_PROFILE = gql`
     }
   }
 `;
+
+export const GET_USER_BY_ID = gql`
+  query getUserById($userId: ID!) {
+    user(_id: $userId) {
+      _id
+      first_name
+      last_name
+      email
+      quotes {
+        name
+      }
+    }
+  }
+`;

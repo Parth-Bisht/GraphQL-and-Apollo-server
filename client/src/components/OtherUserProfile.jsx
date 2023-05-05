@@ -1,11 +1,13 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { GET_MY_PROFILE } from "../gqloperations/queries";
+import { GET_USER_BY_ID } from "../gqloperations/queries";
 import { useParams } from "react-router-dom";
 
 const OtherUserProfile = () => {
-const userId = useParams();
-  const { data, error, loading } = useQuery(GET_MY_PROFILE);
+  const userId = useParams();
+  const { data, error, loading } = useQuery(GET_USER_BY_ID, {
+    variables: { userId: userId.userid },
+  });
 
   if (loading) return <h1>Loading</h1>;
   if (error) {
