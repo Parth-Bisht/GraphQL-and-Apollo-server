@@ -41,7 +41,7 @@ const resolvers = {
       if (!doMatch) {
         throw new Error("Invalid password");
       }
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ userId: user._id }, "SDJFSDDKSLFJDSLKJF");
       return { token };
     },
     createQuote: async (_, { name }, { userId }) => {
