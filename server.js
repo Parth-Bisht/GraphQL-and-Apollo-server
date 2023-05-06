@@ -42,6 +42,9 @@ import resolvers from "./resolvers.js";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  cache: {
+    maxSize: 100,
+  },
   context: ({ req }) => {
     const { authorization } = req.headers;
     if (authorization) {
