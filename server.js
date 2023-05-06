@@ -21,10 +21,13 @@ if (process.env.NODE_ENV != "production") {
   dotenv.config();
 }
 
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://bishtparth795:parth123@cluster0.ono957l.mongodb.net/graphqldb",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 mongoose.connection.on("connected", () => {
   console.log("Connected to mongodb");
